@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, Button, Text, View} from 'react-native';
+import Ball from './Ball';
 
 export default class DodgeBlock extends Component {
     constructor(props){
@@ -11,6 +12,7 @@ export default class DodgeBlock extends Component {
         return(
             <View style={styles.container}>
                 <Text style={styles.header}>Dodge Block Screen</Text>
+                <Ball />
             </View>
         )
     }

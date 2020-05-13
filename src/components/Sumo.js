@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, Button, Text, View} from 'react-native';
+import Ball from './Ball';
 
 export default class Sumo extends Component {
     constructor(props){
@@ -11,6 +12,7 @@ export default class Sumo extends Component {
         return(
             <View style={styles.container}>
                 <Text style={styles.header}>Sumo Screen</Text>
+                <Ball />
             </View>
         )
     }
