@@ -2,12 +2,11 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 
 export const BALL_SIZE = 50;
-export default function Ball({ x, y }) {
+export default function Ball() {
   return (
     <View
       style={[
-        styles.ball,
-        { transform: [{ translateX: x }, { translateY: y }] }
+        styles.ball
       ]}
     />
   );
