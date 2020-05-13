@@ -6,7 +6,8 @@ export default function Ball() {
   return (
     <View
       style={[
-        styles.ball
+        styles.ball,
+        // { transform: [{ translateX: x }, { translateY: y }] }
       ]}
     />
   );
