@@ -15,16 +15,42 @@ export default class Dodge extends PureComponent {
     this.state = {
       x: width / 2 - RADIUS,
       y: height / 2 - RADIUS,
-      blockTop: 100
+      blockTop: 100,
+      blockLeft: [
+        20, 
+        30,
+        40,
+        50,
+        60,
+        70,
+        80
+      ],
+      blockColors: [
+        'yellow',
+        'green',
+        'greenyellow',
+        'magenta',
+        'turquoise',
+        'purple'
+      ]
     };
   }
 
   componentDidMount(){
-    Accelerometer.addListener(item => {this.setState(
-      {movementX: item.x * 1000});
+    Accelerometer.addListener(data => {this.setState(
+      {movementX: data.x * 1000}); 
     });
-    this.state.blockTop -= 2;
-    console.log(this.state.blockTop);
+    this.state.blockTop -= 3;
+  }
+
+  randomBlockColor() {
+    var index = Math.floor(Math.random() * this.state.blockColors.length); //0 - answers.length
+    return this.state.blockLeft[index];
+  }
+
+  randomBlockLeft() {
+    var index = Math.floor(Math.random() * this.state.blockLeft.length); //0 - answers.length
+    return this.state.blockColors[index];
   }
 
   render() {
@@ -32,7 +58,7 @@ export default class Dodge extends PureComponent {
       <GameLoop style={styles.container} onUpdate={this.componentDidMount()}>
 
         <View style={[styles.ball, { left: this.state.movementX}]} />
-        <View style={[styles.block, {top: `${this.state.blockTop}%`, left: '30%'}]}/>
+        <View style={[styles.block, {top: `${this.state.blockTop}%`, left: `${this.randomBlockLeft()}%`, backgroundColor: `${this.randomBlockColor()}`}]}/>
 
       </GameLoop>
     );
@@ -53,7 +79,6 @@ const styles = StyleSheet.create({
   block: {
     width: blockWidth,
     height: blockHeight,
-    backgroundColor: 'green',
     position: 'absolute'
   }
 });
