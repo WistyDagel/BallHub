@@ -9,22 +9,39 @@ const RADIUS = 30;
 const blockWidth = 30;
 const blockHeight = 80;
 
+
 export default class Dodge extends PureComponent {
   constructor() {
     super();
     this.state = {
       x: width / 2 - RADIUS,
       y: height / 2 - RADIUS,
-      blockTop: 100
+      blockTop: 100,
+      counter: 1
     };
   }
-
+  
   componentDidMount(){
     Accelerometer.addListener(item => {this.setState(
       {movementX: item.x * 1000});
     });
-    this.state.blockTop -= 2;
-    console.log(this.state.blockTop);
+    this.state.blockTop -= 3;
+    
+    let d = new Date()
+      this.setState({
+        time: d.getSeconds()
+      });
+    let second = d.getSeconds();
+    
+    if (this.state.time < second) {
+      this.setState({
+        [`blockTop${this.state.counter}`] : 100
+      })
+
+      console.log(`Block ${this.state.counter} = ${this.state[`blockTop${this.state.counter}`]}`);
+
+      this.state.counter += 1;
+    }
   }
 
   render() {
