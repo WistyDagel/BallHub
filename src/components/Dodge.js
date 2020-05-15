@@ -17,13 +17,15 @@ export default class Dodge extends PureComponent {
       x: width / 2 - RADIUS,
       y: height / 2 - RADIUS,
       blockTop: 100,
-      counter: 1
+      counter: 1,
+      blockLeft: this.randomBlockLeft(),
+      blockColors: this.randomBlockColor()
     };
   }
   
   componentDidMount(){
-    Accelerometer.addListener(item => {this.setState(
-      {movementX: item.x * 1000});
+    Accelerometer.addListener(data => {this.setState(
+      {movementX: data.x * 500}); 
     });
     this.state.blockTop -= 3;
     
@@ -42,6 +44,34 @@ export default class Dodge extends PureComponent {
 
       this.state.counter += 1;
     }
+    console.log(this.randomBlockLeft);
+  }
+
+  randomBlockColor() {
+    var colorArray = [
+      'yellow',
+      'green',
+      'greenyellow',
+      'magenta',
+      'turquoise',
+      'purple'
+    ];
+    var index = Math.floor(Math.random() * colorArray.length); 
+    return colorArray[index];
+  }
+
+  randomBlockLeft() {
+    var leftArray = [
+      20, 
+      30,
+      40,
+      50,
+      60,
+      70,
+      80
+    ];
+    var index = Math.floor(Math.random() * leftArray.length);
+    return leftArray[index];
   }
 
   render() {
@@ -49,11 +79,16 @@ export default class Dodge extends PureComponent {
       <GameLoop style={styles.container} onUpdate={this.componentDidMount()}>
 
         <View style={[styles.ball, { left: this.state.movementX}]} />
-        <View style={[styles.block, {top: `${this.state.blockTop}%`, left: '30%'}]}/>
+        <View style={[styles.block, {top: `${this.state.blockTop}%`, left: `${this.state.blockLeft}%`, backgroundColor: `${this.state.blockColors}`}]}/>
 
+        {/* Create an array of View elements containing blocks, append to the array over a set interval of time  */}
       </GameLoop>
     );
   }
+
+  // componentWillUnmount() {
+  //   this._unsubscribe();
+  // }
 }
 const styles = StyleSheet.create({
   container: {
@@ -70,7 +105,6 @@ const styles = StyleSheet.create({
   block: {
     width: blockWidth,
     height: blockHeight,
-    backgroundColor: 'green',
     position: 'absolute'
   }
 });

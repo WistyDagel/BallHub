@@ -16,6 +16,10 @@ export default class Sumo extends Component {
             </View>
         )
     }
+
+    // componentWillUnmount() {
+    //     this._unsubscribe();
+    // }
 }
 
 const styles = StyleSheet.create({

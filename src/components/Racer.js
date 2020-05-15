@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, Dimensions, View, Image } from "react-native";
-import {Accelerometer} from "expo-sensors"
+import { Accelerometer } from "expo-sensors"
 
 const { width, height} = Dimensions.get("window");
 
@@ -11,8 +11,8 @@ export default class Racer extends Component {
   }
 
   componentDidMount(){
-      Accelerometer.addListener(item => {this.setState(
-      {movement: item.x * 1000});
+    Accelerometer.addListener(item => {this.setState(
+      {movement: item.x * 500});
     });
   }
 
@@ -24,6 +24,10 @@ export default class Racer extends Component {
         </View>
     );
   }
+
+//   componentWillUnmount() {
+//     this._unsubscribe();
+//   }
 }
 
 const styles = StyleSheet.create({
