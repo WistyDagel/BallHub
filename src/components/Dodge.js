@@ -44,12 +44,12 @@ export default class Dodge extends PureComponent {
   }
 
   randomBlockColor() {
-    var index = Math.floor(Math.random() * this.state.blockColors.length); //0 - answers.length
+    var index = Math.floor(Math.random() * this.state.blockColors.length); 
     return this.state.blockLeft[index];
   }
 
   randomBlockLeft() {
-    var index = Math.floor(Math.random() * this.state.blockLeft.length); //0 - answers.length
+    var index = Math.floor(Math.random() * this.state.blockLeft.length);
     return this.state.blockColors[index];
   }
 
