@@ -12,48 +12,25 @@ export default class Dodge extends PureComponent {
     this.state = {
       x: width / 2 - RADIUS,
       y: height / 2 - RADIUS,
-      sensorData: {
-        x: '',
-        y: ''
-      }
     };
   }
 
-  updateHandler = ({ touches, screen, layout, time }) => {
-        this.runAccelerometer();
-        this.setState({
-            x: this.state.x + round(this.state.sensorData.x),
-            y: this.state.y + round(this.state.sensorData.y)
-        });
-  };
-
-  runAccelerometer = () => {
-      Accelerometer.addListener(data => {
-        this.setState({sensorData: data})
-        console.log(round(this.state.sensorData.x))
+  componentDidMount(){
+    Accelerometer.addListener(item => {this.setState(
+      {movementX: item.x * 1000});
     });
   }
 
-
   render() {
     return (
-      <GameLoop style={styles.container} onUpdate={this.updateHandler}>
+      <GameLoop style={styles.container} onUpdate={this.componentDidMount()}>
 
-        <View style={[styles.player, { left: this.state.x, top: this.state.y }]} />
+        <View style={[styles.player, { left: this.state.movementX, top: this.state.movementY}]} />
 
       </GameLoop>
     );
   }
 }
-
-function round(n) {
-    if (!n) {
-      return 0;
-    }
-  
-    return Math.floor(n * 1000) / 100;
-}
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

@@ -12,7 +12,7 @@ export default class Racer extends Component {
 
   componentDidMount(){
       Accelerometer.addListener(item => {this.setState(
-      {movement: item.x *-100});
+      {movement: item.x * 1000});
     });
   }
 
