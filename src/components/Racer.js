@@ -6,8 +6,8 @@ const { width, height} = Dimensions.get("window");
 
 export default class Racer extends Component {
   constructor() {
-    super();
-    this.state = {};
+      super();
+      this.state = {};
   }
 
   componentDidMount(){
