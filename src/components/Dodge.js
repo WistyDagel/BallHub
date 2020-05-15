@@ -30,6 +30,10 @@ export default class Dodge extends PureComponent {
       </GameLoop>
     );
   }
+
+  componentWillUnmount() {
+    this._unsubscribe();
+  }
 }
 const styles = StyleSheet.create({
   container: {
