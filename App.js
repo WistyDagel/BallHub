@@ -4,6 +4,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Dodge from './src/components/Dodge';
 import Sumo from './src/components/Sumo';
+import Racer from './src/components/Racer';
+
 
 function HomeScreen({ navigation, route }) {
   return (
@@ -15,6 +17,10 @@ function HomeScreen({ navigation, route }) {
       <Button
         title="Sumo"
         onPress={() => navigation.navigate('Sumo')}
+      />
+      <Button
+        title="Racer"
+        onPress={() => navigation.navigate('Racer')}
       />
     </View>
   );
@@ -37,6 +43,15 @@ function SumoScreen({navigation, route}) {
 }
 
 
+function RacerScreen({navigation, route}) {
+  return (
+    <View>
+      <Racer />
+    </View>
+  )
+}
+
+
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -46,6 +61,7 @@ const App = () => {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Dodge" component={Dodge} />
         <Stack.Screen name="Sumo" component={Sumo} />
+        <Stack.Screen name="Racer" component={Racer} />
       </Stack.Navigator>
     </NavigationContainer>
   );
