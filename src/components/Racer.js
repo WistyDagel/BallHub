@@ -20,7 +20,7 @@ export default class Racer extends Component {
     return (
         <View style={styles.container}>
             <Image source={require('./images/road.gif')} style={styles.raceway}/>
-            <Image source={require('./images/car.png')} style={{marginTop: 200, width: 70, height: 50, flex: 1, justifyContent: "flex-end", alignItems: "flex-end", position: 'absolute', left: this.state.movement}}/>
+            <Image source={require('./images/car.png')} style={{marginTop: 200, width: 70, height: 50, flex: 1, position: 'absolute', left: this.state.movement}}/>
         </View>
     );
   }
