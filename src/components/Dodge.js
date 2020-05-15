@@ -40,11 +40,11 @@ export default class Dodge extends PureComponent {
         [`blockTop${this.state.counter}`] : 100
       })
 
-      console.log(`Block ${this.state.counter} = ${this.state[`blockTop${this.state.counter}`]}`);
+      console.log(this.state.blockTop[`${this.state.counter}`]);
+      // console.log(`Block ${this.state.counter} = ${this.state[`blockTop${this.state.counter}`]}`);
 
       this.state.counter += 1;
     }
-    console.log(this.randomBlockLeft);
   }
 
   randomBlockColor() {
