@@ -23,7 +23,7 @@ export default class Dodge extends PureComponent {
 
   componentDidMount(){
     Accelerometer.addListener(data => {this.setState(
-      {movementX: data.x * 1000}); 
+      {movementX: data.x * 500}); 
     });
     this.state.blockTop -= 3;
     console.log(this.randomBlockLeft);

@@ -17,9 +17,9 @@ export default class Sumo extends Component {
         )
     }
 
-    componentWillUnmount() {
-        this._unsubscribe();
-    }
+    // componentWillUnmount() {
+    //     this._unsubscribe();
+    // }
 }
 
 const styles = StyleSheet.create({
