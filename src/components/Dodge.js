@@ -16,23 +16,8 @@ export default class Dodge extends PureComponent {
       x: width / 2 - RADIUS,
       y: height / 2 - RADIUS,
       blockTop: 100,
-      blockLeft: [
-        20, 
-        30,
-        40,
-        50,
-        60,
-        70,
-        80
-      ],
-      blockColors: [
-        'yellow',
-        'green',
-        'greenyellow',
-        'magenta',
-        'turquoise',
-        'purple'
-      ]
+      blockLeft: this.randomBlockLeft(),
+      blockColors: this.randomBlockColor()
     };
   }
 
@@ -41,16 +26,34 @@ export default class Dodge extends PureComponent {
       {movementX: data.x * 1000}); 
     });
     this.state.blockTop -= 3;
+    console.log(this.randomBlockLeft);
   }
 
   randomBlockColor() {
-    var index = Math.floor(Math.random() * this.state.blockColors.length); 
-    return this.state.blockLeft[index];
+    var colorArray = [
+      'yellow',
+      'green',
+      'greenyellow',
+      'magenta',
+      'turquoise',
+      'purple'
+    ];
+    var index = Math.floor(Math.random() * colorArray.length); 
+    return colorArray[index];
   }
 
   randomBlockLeft() {
-    var index = Math.floor(Math.random() * this.state.blockLeft.length);
-    return this.state.blockColors[index];
+    var leftArray = [
+      20, 
+      30,
+      40,
+      50,
+      60,
+      70,
+      80
+    ];
+    var index = Math.floor(Math.random() * leftArray.length);
+    return leftArray[index];
   }
 
   render() {
@@ -58,15 +61,15 @@ export default class Dodge extends PureComponent {
       <GameLoop style={styles.container} onUpdate={this.componentDidMount()}>
 
         <View style={[styles.ball, { left: this.state.movementX}]} />
-        <View style={[styles.block, {top: `${this.state.blockTop}%`, left: `${this.randomBlockLeft()}%`, backgroundColor: `${this.randomBlockColor()}`}]}/>
+        <View style={[styles.block, {top: `${this.state.blockTop}%`, left: `${this.state.blockLeft}%`, backgroundColor: `${this.state.blockColors}`}]}/>
 
       </GameLoop>
     );
   }
 
-  componentWillUnmount() {
-    this._unsubscribe();
-  }
+  // componentWillUnmount() {
+  //   this._unsubscribe();
+  // }
 }
 const styles = StyleSheet.create({
   container: {
