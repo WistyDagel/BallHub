@@ -21,6 +21,12 @@ export default class Dodge extends PureComponent {
     };
   }
 
+  EnemyBlock = () => {
+    return(
+      <View style={[styles.block, {top: `${this.state.blockTop}%`, left: `${this.state.blockLeft}%`, backgroundColor: `${this.state.blockColors}`}]}/>
+    )
+  }
+
   componentDidMount(){
     this.state.blockTop -= 3;
     console.log(this.randomBlockLeft);
@@ -60,12 +66,18 @@ export default class Dodge extends PureComponent {
   }
 
   render() {
+
+    let enemyBlocks = [];
+    for (let i = 0; i < 1; i++) {
+        enemyBlocks.push(<this.EnemyBlock/>);
+    }
+
     return (
       <GameLoop style={styles.container} onUpdate={this.componentDidMount()}>
 
         <View style={[styles.ball, { left: this.state.movementX}]} />
-        <View style={[styles.block, {top: `${this.state.blockTop}%`, left: `${this.state.blockLeft}%`, backgroundColor: `${this.state.blockColors}`}]}/>
         {/* Create an array of View elements containing blocks, append to the array over a set interval of time  */}
+        {enemyBlocks}
       </GameLoop>
     );
   }
