@@ -39,10 +39,6 @@ export default class Dodge extends PureComponent {
       // blockLeft: this.randomBlockLeft(),
       // blockColors: this.randomBlockColor()
     };
-
-    Accelerometer.addListener(data => {this.setState(
-      {movementX: data.x * 500}); 
-    });
   }
 
   EnemyBlock = () => {
@@ -63,12 +59,6 @@ export default class Dodge extends PureComponent {
     this.state.movementX = keepInBoundsX(this.state.movementX, this.state.movementX + (RADIUS * 2), width);
     // console.log(`Ball x1: ${this.state.movementX}, Ball x2: ${this.state.movementX + (RADIUS * 2)}, Width: ${width}`);
     
-    console.log(this.randomBlockLeft);
-    
-    counter = 1;
-  }
-
-  componentWillMount(){
     Accelerometer.addListener(data => {
       // Move ball with accelerometer data
       this.setState({movementX: data.x * 500});
@@ -76,7 +66,9 @@ export default class Dodge extends PureComponent {
       this.setState({movementX2: this.state.movementX + (RADIUS * 2)});
     });
     
+    counter = 1;
   }
+  
 
   gameLogic() {
     let d = new Date()
