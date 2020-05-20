@@ -9,7 +9,6 @@ const RADIUS = 30;
 const blockWidth = 30;
 const blockHeight = 80;
 
-
 export default class Dodge extends PureComponent {
   constructor() {
     super();
@@ -17,34 +16,17 @@ export default class Dodge extends PureComponent {
       x: width / 2 - RADIUS,
       y: height / 2 - RADIUS,
       blockTop: 100,
-      counter: 1,
       blockLeft: this.randomBlockLeft(),
       blockColors: this.randomBlockColor()
     };
   }
-  
+
   componentDidMount(){
     Accelerometer.addListener(data => {this.setState(
-      {movementX: data.x * 500}); 
+      {movementX: data.x * -500});
     });
     this.state.blockTop -= 3;
-    
-    let d = new Date()
-      this.setState({
-        time: d.getSeconds()
-      });
-    let second = d.getSeconds();
-    
-    if (this.state.time < second) {
-      this.setState({
-        [`blockTop${this.state.counter}`] : 100
-      })
-
-      console.log(this.state.blockTop[`${this.state.counter}`]);
-      // console.log(`Block ${this.state.counter} = ${this.state[`blockTop${this.state.counter}`]}`);
-
-      this.state.counter += 1;
-    }
+    console.log(this.randomBlockLeft);
   }
 
   randomBlockColor() {
