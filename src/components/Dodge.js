@@ -64,8 +64,6 @@ export default class Dodge extends PureComponent {
     Accelerometer.addListener(data => {
       // Move ball with accelerometer data
       this.setState({movementX: data.x * 500});
-      // TODO REMOVE
-      this.setState({movementX2: this.state.movementX + (RADIUS * 2)});
     });
   }
 
@@ -141,12 +139,8 @@ export default class Dodge extends PureComponent {
     }
 
     // TODO Jeff's crappy collision code :)
-    // Keep the ball in boundaries of device width
-    // this.state.movementX = keepInBoundsX(this.state.movementX, this.state.movementX + (RADIUS * 2), width);
-    // styles.ballEdge.left = this.state.movementX + (RADIUS * 2);
     console.log(`${keepInBoundsX(this.state.movementX, this.state.movementX + (RADIUS * 2), width)} : ${this.state.movementX}`);
     this.state.movementX = keepInBoundsX(this.state.movementX, this.state.movementX + (RADIUS * 2), width);
-    // console.log(`Ball x1: ${this.state.movementX}, Ball x2: ${this.state.movementX + (RADIUS * 2)}, Width: ${width}`);
   }
 
   randomBlockColor() {
@@ -200,7 +194,6 @@ export default class Dodge extends PureComponent {
         <View style={[styles.ball, { left: this.state.movementX}]} />
         
         <View style={[styles.ballEdge, { left: this.state.movementX}]} />
-        <View style={[styles.ballEdge, { left: this.state.movementX2}]} />
         
         <View style={[styles.block, {top: `${this.state.blockTop}%`, left: `${this.state.blockLeft}%`, backgroundColor: `${this.state.blockColors}`}]}/>
         <View style={[styles.block, {top: `${this.state.blockTop1}%`, left: `${this.state.blockLeft1}%`, backgroundColor: `${this.state.blockColor1}`}]}/>
@@ -235,12 +228,5 @@ const styles = StyleSheet.create({
     width: blockWidth,
     height: blockHeight,
     position: 'absolute'
-  },
-
-  ballEdge: {
-    position: "absolute",
-    width: 1,
-    height: RADIUS * 2,
-    backgroundColor: "green"
   }
 });
