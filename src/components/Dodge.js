@@ -26,7 +26,12 @@ export default class Dodge extends PureComponent {
       {movementX: data.x * -500});
     });
     this.state.blockTop -= 3;
-    console.log(this.randomBlockLeft);
+    // console.log(this.randomBlockLeft);
+    // console.log(this.state.movementX);
+    // console.log(`${width} x ${height}`);
+    if (this.state.movementX < 0 || this.state.movementX + RADIUS > width) {
+      console.log("out of bounds");
+    }
   }
 
   randomBlockColor() {
