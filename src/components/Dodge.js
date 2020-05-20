@@ -33,15 +33,30 @@ export default class Dodge extends PureComponent {
       blockColor4: this.randomBlockColor(),
       blockLeft5: this.randomBlockLeft(),
       blockColor5: this.randomBlockColor(),
+      // blockTop: 100,
+      // blockLeft: this.randomBlockLeft(),
+      // blockColors: this.randomBlockColor()
     };
   }
-  
+
+  EnemyBlock = () => {
+    return(
+      <View style={[styles.block, {top: `${this.state.blockTop}%`, left: `${this.state.blockLeft}%`, backgroundColor: `${this.state.blockColors}`}]}/>
+    )
+  }
+
   componentDidMount(){
+    this.state.blockTop -= 3;
+    console.log(this.randomBlockLeft);
+    
+    counter = 1;
+  }
+
+  componentWillMount(){
     Accelerometer.addListener(data => {this.setState(
       {movementX: data.x * 500}); 
     });
     
-    counter = 1;
   }
 
   doLogic() {
@@ -145,6 +160,12 @@ export default class Dodge extends PureComponent {
   }
 
   render() {
+
+    let enemyBlocks = [];
+    for (let i = 0; i < 1; i++) {
+        enemyBlocks.push(<this.EnemyBlock/>);
+    }
+
     return (
       <GameLoop style={styles.container} onUpdate={this.doLogic()}>
 
@@ -156,6 +177,7 @@ export default class Dodge extends PureComponent {
         <View style={[styles.block, {top: `${this.state.blockTop5}%`, left: `${this.state.blockLeft5}%`, backgroundColor: `${this.state.blockColor5}`}]}/>
 
         {/* Create an array of View elements containing blocks, append to the array over a set interval of time  */}
+        {/* {enemyBlocks} */}
       </GameLoop>
     );
   }
