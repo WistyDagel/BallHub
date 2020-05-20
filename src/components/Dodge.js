@@ -140,10 +140,6 @@ export default class Dodge extends PureComponent {
       });
     }
 
-    objectCollisions();
-  }
-
-  objectCollisions() {
     // TODO Jeff's crappy collision code :)
     // Keep the ball in boundaries of device width
     // this.state.movementX = keepInBoundsX(this.state.movementX, this.state.movementX + (RADIUS * 2), width);
