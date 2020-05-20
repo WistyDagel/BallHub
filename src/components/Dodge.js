@@ -29,7 +29,6 @@ export default class Dodge extends PureComponent {
 
   componentDidMount(){
     this.state.blockTop -= 3;
-    console.log(this.randomBlockLeft);
   }
 
   componentWillMount(){
@@ -53,13 +52,16 @@ export default class Dodge extends PureComponent {
 
   randomBlockLeft() {
     var leftArray = [
+      0,
+      10,
       20, 
       30,
       40,
       50,
       60,
       70,
-      80
+      80,
+      90
     ];
     var index = Math.floor(Math.random() * leftArray.length);
     return leftArray[index];
@@ -67,10 +69,18 @@ export default class Dodge extends PureComponent {
 
   render() {
 
-    let enemyBlocks = [];
+    let enemyBlocks = [];  
+    let d = new Date()
+    this.setState({
+      time: d.getSeconds()
+    });
+    let second = d.getSeconds();
+
     for (let i = 0; i < 1; i++) {
-        enemyBlocks.push(<this.EnemyBlock/>);
+      enemyBlocks.push(<this.EnemyBlock key={i}/>);
     }
+
+    console.log(enemyBlocks.length);
 
     return (
       <GameLoop style={styles.container} onUpdate={this.componentDidMount()}>
