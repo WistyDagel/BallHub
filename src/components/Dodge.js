@@ -75,16 +75,16 @@ export default class Dodge extends PureComponent {
     if (this.state.time < mili) {
       this.state.blockTop1 -= 3;
       
-      if (counter >=1 ) {
+      if (counter >= 10) {
         this.state.blockTop2 -= 3;
         
-        if (counter >=2) {
+        if (counter >= 20) {
           this.state.blockTop3 -= 3;
           
-          if (counter >=3) {
+          if (counter >= 30) {
             this.state.blockTop4 -= 3;
             
-            if (counter >=4) {
+            if (counter >= 40) {
               this.state.blockTop5 -= 3;
 
             }
