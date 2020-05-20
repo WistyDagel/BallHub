@@ -78,7 +78,7 @@ export default class Dodge extends PureComponent {
     
   }
 
-  doLogic() {
+  gameLogic() {
     let d = new Date()
     this.setState({
       time: d.getSeconds()
@@ -197,7 +197,7 @@ export default class Dodge extends PureComponent {
     console.log(enemyBlocks.length);
 
     return (
-      <GameLoop style={styles.container} onUpdate={this.doLogic()}>
+      <GameLoop style={styles.container} onUpdate={this.gameLogic()}>
 
         <View style={[styles.ball, { left: this.state.movementX}]} />
         
