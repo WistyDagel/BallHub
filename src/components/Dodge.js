@@ -37,6 +37,10 @@ export default class Dodge extends PureComponent {
       // blockLeft: this.randomBlockLeft(),
       // blockColors: this.randomBlockColor()
     };
+
+    Accelerometer.addListener(data => {this.setState(
+      {movementX: data.x * 500}); 
+    });
   }
 
   EnemyBlock = () => {
@@ -146,6 +150,8 @@ export default class Dodge extends PureComponent {
 
   randomBlockLeft() {
     var leftArray = [
+      0,
+      10,
       20, 
       30,
       40,
@@ -161,10 +167,18 @@ export default class Dodge extends PureComponent {
 
   render() {
 
-    let enemyBlocks = [];
+    let enemyBlocks = [];  
+    let d = new Date()
+    this.setState({
+      time: d.getSeconds()
+    });
+    let second = d.getSeconds();
+
     for (let i = 0; i < 1; i++) {
-        enemyBlocks.push(<this.EnemyBlock/>);
+      enemyBlocks.push(<this.EnemyBlock key={i}/>);
     }
+
+    console.log(enemyBlocks.length);
 
     return (
       <GameLoop style={styles.container} onUpdate={this.doLogic()}>

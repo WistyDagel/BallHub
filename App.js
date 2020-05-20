@@ -14,10 +14,10 @@ function HomeScreen({ navigation, route }) {
         title="Dodge"
         onPress={() => navigation.navigate('Dodge')}
       />
-      <Button
+      {/* <Button
         title="Sumo"
         onPress={() => navigation.navigate('Sumo')}
-      />
+      /> */}
       <Button
         title="Racer"
         onPress={() => navigation.navigate('Racer')}
