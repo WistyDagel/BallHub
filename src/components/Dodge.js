@@ -83,7 +83,6 @@ export default class Dodge extends PureComponent {
             
             if (counter >= 40) {
               this.state.blockTop5 -= 3;
-
             }
           }
         }
