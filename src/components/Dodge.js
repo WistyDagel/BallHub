@@ -48,7 +48,6 @@ export default class Dodge extends PureComponent {
   }
 
   componentDidMount(){
-    this.state.blockTop -= 3;
     // console.log(this.randomBlockLeft);
     
     Accelerometer.addListener(data => {
@@ -83,7 +82,6 @@ export default class Dodge extends PureComponent {
             
             if (counter >= 40) {
               this.state.blockTop5 -= 3;
-
             }
           }
         }
