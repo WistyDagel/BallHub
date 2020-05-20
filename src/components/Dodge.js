@@ -19,6 +19,10 @@ export default class Dodge extends PureComponent {
       blockLeft: this.randomBlockLeft(),
       blockColors: this.randomBlockColor()
     };
+
+    Accelerometer.addListener(data => {this.setState(
+      {movementX: data.x * 500}); 
+    });
   }
 
   EnemyBlock = () => {
@@ -29,12 +33,6 @@ export default class Dodge extends PureComponent {
 
   componentDidMount(){
     this.state.blockTop -= 3;
-  }
-
-  componentWillMount(){
-    Accelerometer.addListener(data => {this.setState(
-      {movementX: data.x * 500}); 
-    });
   }
 
   randomBlockColor() {
