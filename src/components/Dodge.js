@@ -54,14 +54,6 @@ export default class Dodge extends PureComponent {
   componentDidMount(){
     this.state.blockTop -= 3;
     // console.log(this.randomBlockLeft);
-
-    // TODO Jeff's crappy collision code :)
-    // Keep the ball in boundaries of device width
-    // this.state.movementX = keepInBoundsX(this.state.movementX, this.state.movementX + (RADIUS * 2), width);
-    // styles.ballEdge.left = this.state.movementX + (RADIUS * 2);
-    console.log(`${keepInBoundsX(this.state.movementX, this.state.movementX + (RADIUS * 2), width)} : ${this.state.movementX}`);
-    this.state.movementX = keepInBoundsX(this.state.movementX, this.state.movementX + (RADIUS * 2), width);
-    // console.log(`Ball x1: ${this.state.movementX}, Ball x2: ${this.state.movementX + (RADIUS * 2)}, Width: ${width}`);
     
     console.log(this.randomBlockLeft);
     
@@ -75,7 +67,6 @@ export default class Dodge extends PureComponent {
       // TODO REMOVE
       this.setState({movementX2: this.state.movementX + (RADIUS * 2)});
     });
-    
   }
 
   doLogic() {
@@ -149,6 +140,17 @@ export default class Dodge extends PureComponent {
       });
     }
 
+    objectCollisions();
+  }
+
+  objectCollisions() {
+    // TODO Jeff's crappy collision code :)
+    // Keep the ball in boundaries of device width
+    // this.state.movementX = keepInBoundsX(this.state.movementX, this.state.movementX + (RADIUS * 2), width);
+    // styles.ballEdge.left = this.state.movementX + (RADIUS * 2);
+    console.log(`${keepInBoundsX(this.state.movementX, this.state.movementX + (RADIUS * 2), width)} : ${this.state.movementX}`);
+    this.state.movementX = keepInBoundsX(this.state.movementX, this.state.movementX + (RADIUS * 2), width);
+    // console.log(`Ball x1: ${this.state.movementX}, Ball x2: ${this.state.movementX + (RADIUS * 2)}, Width: ${width}`);
   }
 
   randomBlockColor() {
