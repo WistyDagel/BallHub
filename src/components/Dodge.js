@@ -69,22 +69,23 @@ export default class Dodge extends PureComponent {
       time: d.getSeconds()
     });
 
-    let second = d.getSeconds();
+    let mili = d.getMilliseconds()
+    // let second = d.getSeconds();
 
-    if (this.state.time < second) {
-      this.state.blockTop1 -= 1;
+    if (this.state.time < mili) {
+      this.state.blockTop1 -= 3;
       
       if (counter >=1 ) {
-        this.state.blockTop2 -= 1;
+        this.state.blockTop2 -= 3;
         
         if (counter >=2) {
-          this.state.blockTop3 -= 1;
+          this.state.blockTop3 -= 3;
           
           if (counter >=3) {
-            this.state.blockTop4 -= 1;
+            this.state.blockTop4 -= 3;
             
             if (counter >=4) {
-              this.state.blockTop5 -= 1;
+              this.state.blockTop5 -= 3;
 
             }
           }
