@@ -55,14 +55,7 @@ export default class Dodge extends PureComponent {
     
     counter = 1;
   }
-
-  componentWillMount(){
-    Accelerometer.addListener(data => {this.setState(
-      {movementX: data.x * 500}); 
-    });
-    
-  }
-
+  
   doLogic() {
     let d = new Date()
     this.setState({
