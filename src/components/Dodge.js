@@ -3,13 +3,15 @@ import { AppRegistry, StyleSheet, Dimensions, View } from "react-native";
 import {Accelerometer} from "expo-sensors";
 import { GameLoop } from "react-native-game-engine";
 
-import { keepInBoundsX } from './Collision';
+import { keepInBoundsX, collideBlock } from './Collision';
 
 const { width, height} = Dimensions.get("window");
 const RADIUS = 30;
 
 const blockWidth = 30;
 const blockHeight = 80;
+
+let ballColor = "blue";
 
 var counter = 1;
 
@@ -19,6 +21,7 @@ export default class Dodge extends PureComponent {
     this.state = {
       x: width / 2 - RADIUS,
       y: height / 2 - RADIUS,
+      ballTop: 0,
       blockTop1: 100,
       blockTop2: 100,
       blockTop3: 100,
@@ -52,7 +55,7 @@ export default class Dodge extends PureComponent {
     
     Accelerometer.addListener(data => {
       // Move ball with accelerometer data
-      this.setState({movementX: data.x * 500});
+      this.setState({ballX: data.x * 500});
     });
 
     counter = 1;
@@ -130,8 +133,17 @@ export default class Dodge extends PureComponent {
     }
 
     // TODO Jeff's crappy collision code :)
-    console.log(`${keepInBoundsX(this.state.movementX, this.state.movementX + (RADIUS * 2), width)} : ${this.state.movementX}`);
-    this.state.movementX = keepInBoundsX(this.state.movementX, this.state.movementX + (RADIUS * 2), width);
+    // console.log(`${keepInBoundsX(this.state.ballX, this.state.ballX + (RADIUS * 2), width)} : ${this.state.ballX}`);
+    this.state.ballX = keepInBoundsX(this.state.ballX, this.state.ballX + (RADIUS * 2), width);
+
+    let ballCenterX = this.state.ballX + RADIUS;
+    let ballCenterY = this.state.ballTop;
+    if (collideBlock(ballCenterX, ballCenterY, RADIUS, this.state.blockLeft1, this.state.blockTop1, blockWidth, blockHeight)) {
+      ballColor = "red";
+    } else {
+      ballColor = "blue";
+    }
+
   }
 
   randomBlockColor() {
@@ -177,16 +189,17 @@ export default class Dodge extends PureComponent {
       enemyBlocks.push(<this.EnemyBlock key={i}/>);
     }
 
-    console.log(enemyBlocks.length);
-
+    // console.log(enemyBlocks.length);
+    
+    // <View style={[styles.block, {top: `${this.state.blockTop1}%`, left: `${this.state.blockLeft1}%`, backgroundColor: `${this.state.blockColor1}`}]}/>
     return (
       <GameLoop style={styles.container} onUpdate={this.gameLogic()}>
 
-        <View style={[styles.ball, { left: this.state.movementX}]} />
+        <View style={[styles.ball, { left: this.state.ballX, backgroundColor: ballColor}]} />
         
-        <View style={[styles.ballEdge, { left: this.state.movementX}]} />
+        <View style={[styles.ballEdge, { left: this.state.ballX}]} />
         
-        <View style={[styles.block, {top: `${this.state.blockTop1}%`, left: `${this.state.blockLeft1}%`, backgroundColor: `${this.state.blockColor1}`}]}/>
+        <View style={[styles.block, {top: `${this.state.blockTop1}%`, left: `${this.state.blockLeft1}%`, backgroundColor: "white"}]}/>
         <View style={[styles.block, {top: `${this.state.blockTop2}%`, left: `${this.state.blockLeft2}%`, backgroundColor: `${this.state.blockColor2}`}]}/>
         <View style={[styles.block, {top: `${this.state.blockTop3}%`, left: `${this.state.blockLeft3}%`, backgroundColor: `${this.state.blockColor3}`}]}/>
         <View style={[styles.block, {top: `${this.state.blockTop4}%`, left: `${this.state.blockLeft4}%`, backgroundColor: `${this.state.blockColor4}`}]}/>
@@ -209,7 +222,7 @@ const styles = StyleSheet.create({
   },
   ball: {
     position: "absolute",
-    backgroundColor: "red",
+    // backgroundColor: "red",
     width: RADIUS * 2,
     height: RADIUS * 2,
     borderRadius: RADIUS * 2
