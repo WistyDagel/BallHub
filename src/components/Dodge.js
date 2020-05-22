@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-import { AppRegistry, StyleSheet, Dimensions, View } from "react-native";
+import { Text, AppRegistry, StyleSheet, Dimensions, View } from "react-native";
 import {Accelerometer} from "expo-sensors";
 import { GameLoop } from "react-native-game-engine";
 
@@ -206,6 +206,7 @@ export default class Dodge extends PureComponent {
         <View style={[styles.block, {top: `${this.state.blockTop5}%`, left: `${this.state.blockLeft5}%`, backgroundColor: `${this.state.blockColor5}`}]}/>
 
         {/* Create an array of View elements containing blocks, append to the array over a set interval of time  */}
+        <Text style={[styles.text], {left: "5%", top: "92%", fontSize: 24, color: "#fff"}}>{this.state.time}</Text>
         {/* {enemyBlocks} */}
       </GameLoop>
     );
@@ -231,5 +232,9 @@ const styles = StyleSheet.create({
     width: blockWidth,
     height: blockHeight,
     position: 'absolute'
+  },
+  text: {
+    fontSize: 24,
+    color: "#fff"
   }
 });
