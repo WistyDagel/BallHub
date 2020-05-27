@@ -99,7 +99,7 @@ export default class Dodge extends PureComponent {
       counter +=1
     }
 
-    if (this.state.blockTop1 <= 0) {
+    if (this.state.blockTop1 <= -80) {
       this.setState({
         blockTop1: 100,
         blockLeft1: this.randomBlockLeft(),
@@ -107,7 +107,7 @@ export default class Dodge extends PureComponent {
       });
     }
 
-    if (this.state.blockTop2 <= 0) {
+    if (this.state.blockTop2 <= -80) {
       this.setState({
         blockTop2: 100,
         blockLeft2: this.randomBlockLeft(),
@@ -115,7 +115,7 @@ export default class Dodge extends PureComponent {
       });
     }
 
-    if (this.state.blockTop3 <= 0) {
+    if (this.state.blockTop3 <= -80) {
       this.setState({
         blockTop3: 100,
         blockLeft3: this.randomBlockLeft(),
@@ -123,7 +123,7 @@ export default class Dodge extends PureComponent {
       });
     }
 
-    if (this.state.blockTop4 <= 0) {
+    if (this.state.blockTop4 <= -80) {
       this.setState({
         blockTop4: 100,
         blockLeft4: this.randomBlockLeft(),
@@ -131,7 +131,7 @@ export default class Dodge extends PureComponent {
       });
     }
 
-    if (this.state.blockTop5 <= 0) {
+    if (this.state.blockTop5 <= -80) {
       this.setState({
         blockTop5: 100,
         blockLeft5: this.randomBlockLeft(),
@@ -148,17 +148,12 @@ export default class Dodge extends PureComponent {
 
     blockLeft = Math.round((this.state.blockLeft1 / 100) * width);
     blockTop = Math.round((this.state.blockTop1 / 100) * height);
-    console.log(blockTop);
-//     console.log(
-//       `
-// Ball Center: (${ballCenterX}, ${ballCenterY})
-// Ball Radius: ${RADIUS}
-// Block: (${this.state.blockLeft1}, ${this.state.blockTop1})
-// Block Width: ${blockWidth}
-// Block Height: ${blockHeight}
-// \n`
-//     );
-    if (collideBlock(ballCenterX, ballCenterY, RADIUS, (this.state.blockLeft1 / 100) * width, (this.state.blockTop1 / 100) * height, blockWidth, blockHeight)) {
+
+    if (collideBlock(ballCenterX, ballCenterY, RADIUS, (this.state.blockLeft1 / 100) * width, (this.state.blockTop1 / 100) * height, blockWidth, blockHeight) ||
+        collideBlock(ballCenterX, ballCenterY, RADIUS, (this.state.blockLeft2 / 100) * width, (this.state.blockTop2 / 100) * height, blockWidth, blockHeight) ||
+        collideBlock(ballCenterX, ballCenterY, RADIUS, (this.state.blockLeft3 / 100) * width, (this.state.blockTop3 / 100) * height, blockWidth, blockHeight) ||
+        collideBlock(ballCenterX, ballCenterY, RADIUS, (this.state.blockLeft4 / 100) * width, (this.state.blockTop4 / 100) * height, blockWidth, blockHeight) ||
+        collideBlock(ballCenterX, ballCenterY, RADIUS, (this.state.blockLeft5 / 100) * width, (this.state.blockTop5 / 100) * height, blockWidth, blockHeight)) {
       ballColor = "red";
     } else {
       ballColor = "blue";
@@ -221,11 +216,7 @@ export default class Dodge extends PureComponent {
         
         <View style={[styles.ballEdge, { left: this.state.ballX}]} />
         
-        <View style={[styles.block, {top: `${this.state.blockTop1}%`, left: `${this.state.blockLeft1}%`, backgroundColor: "white"}]}/>
-        
-        <View style={[testStyles.dot, {left: ballCenterX, top: ballCenterY}]} />
-        <View style={[testStyles.dot, {left: blockLeft, top: blockTop}]} />
-        
+        <View style={[styles.block, {top: `${this.state.blockTop1}%`, left: `${this.state.blockLeft1}%`, backgroundColor: `${this.state.blockColor2}`}]}/>
         <View style={[styles.block, {top: `${this.state.blockTop2}%`, left: `${this.state.blockLeft2}%`, backgroundColor: `${this.state.blockColor2}`}]}/>
         <View style={[styles.block, {top: `${this.state.blockTop3}%`, left: `${this.state.blockLeft3}%`, backgroundColor: `${this.state.blockColor3}`}]}/>
         <View style={[styles.block, {top: `${this.state.blockTop4}%`, left: `${this.state.blockLeft4}%`, backgroundColor: `${this.state.blockColor4}`}]}/>

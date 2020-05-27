@@ -42,10 +42,10 @@ export let collideBlock = (ballCenterX, ballCenterY, ballRadius, blockX, blockY,
     // x2 = 5
     // y2 = -3
     if (
-        Math.hypot(blockX - ballCenterX, blockY - ballCenterY) <= ballRadius //||
-        // Math.hypot((blockX + blockWidth) - ballCenterX, blockY - ballCenterY) <= ballRadius ||
-        // Math.hypot(blockX - ballCenterX, (blockY + blockHeight) - ballCenterY) <= ballRadius ||
-        // Math.hypot((blockX + blockWidth) - ballCenterX, (blockY + blockHeight) - ballCenterY) <= ballRadius
+        Math.hypot(blockX - ballCenterX, blockY - ballCenterY) <= ballRadius ||
+        Math.hypot((blockX + blockWidth) - ballCenterX, blockY - ballCenterY) <= ballRadius ||
+        Math.hypot(blockX - ballCenterX, (blockY + blockHeight) - ballCenterY) <= ballRadius ||
+        Math.hypot((blockX + blockWidth) - ballCenterX, (blockY + blockHeight) - ballCenterY) <= ballRadius
     ) {
         return true;
     }
