@@ -33,6 +33,7 @@ export default class Dodge extends PureComponent {
       blockTop3: 100,
       blockTop4: 100,
       blockTop5: 100,
+      time: 0,
       counter: 1,
       blockLeft1: this.randomBlockLeft(),
       blockColor1: this.randomBlockColor(),
