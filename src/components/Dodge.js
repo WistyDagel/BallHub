@@ -98,7 +98,7 @@ export default class Dodge extends PureComponent {
       counter +=1
     }
 
-    if (this.state.blockTop1 <= 0) {
+    if (this.state.blockTop1 <= -80) {
       this.setState({
         blockTop1: 100,
         blockLeft1: this.randomBlockLeft(),
@@ -106,7 +106,7 @@ export default class Dodge extends PureComponent {
       });
     }
 
-    if (this.state.blockTop2 <= 0) {
+    if (this.state.blockTop2 <= -80) {
       this.setState({
         blockTop2: 100,
         blockLeft2: this.randomBlockLeft(),
@@ -114,7 +114,7 @@ export default class Dodge extends PureComponent {
       });
     }
 
-    if (this.state.blockTop3 <= 0) {
+    if (this.state.blockTop3 <= -80) {
       this.setState({
         blockTop3: 100,
         blockLeft3: this.randomBlockLeft(),
@@ -122,7 +122,7 @@ export default class Dodge extends PureComponent {
       });
     }
 
-    if (this.state.blockTop4 <= 0) {
+    if (this.state.blockTop4 <= -80) {
       this.setState({
         blockTop4: 100,
         blockLeft4: this.randomBlockLeft(),
@@ -130,7 +130,7 @@ export default class Dodge extends PureComponent {
       });
     }
 
-    if (this.state.blockTop5 <= 0) {
+    if (this.state.blockTop5 <= -80) {
       this.setState({
         blockTop5: 100,
         blockLeft5: this.randomBlockLeft(),
