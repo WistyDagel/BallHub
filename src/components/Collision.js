@@ -17,30 +17,6 @@ export let keepInBoundsX = (x1, x2, w1, w2) => {
 }
 
 export let collideBlock = (ballCenterX, ballCenterY, ballRadius, blockX, blockY, blockWidth, blockHeight) => {
-    // x1 = ballCenterX
-    // y1 = ballCenterY
-    // x2 = blockX
-    // y2 = blockY
-    
-    // x1 = ballCenterX
-    // y1 = ballCenterY
-    // x2 = blockX + blockWidth
-    // y2 = blockY
-    
-    // x1 = ballCenterX
-    // y1 = ballCenterY
-    // x2 = blockX
-    // y2 = blockY + blockHeight
-    
-    // x1 = ballCenterX
-    // y1 = ballCenterY
-    // x2 = blockX + blockWidth
-    // y2 = blockY + blockHeight
-    
-    // x1 = 7
-    // y1 = 2
-    // x2 = 5
-    // y2 = -3
     if (
         Math.hypot(blockX - ballCenterX, blockY - ballCenterY) <= ballRadius ||
         Math.hypot((blockX + blockWidth) - ballCenterX, blockY - ballCenterY) <= ballRadius ||

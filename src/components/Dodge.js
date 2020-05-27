@@ -61,7 +61,7 @@ export default class Dodge extends PureComponent {
     
     Accelerometer.addListener(data => {
       // Move ball with accelerometer data
-      this.setState({ballX: Math.floor(data.x * 500)});
+      this.setState({ballX: Math.round(data.x * 500)});
     });
 
     counter = 1;
@@ -192,7 +192,7 @@ export default class Dodge extends PureComponent {
 
   render() {
 
-    let enemyBlocks = [];  
+    let enemyBlocks = [];
     let d = new Date()
     this.setState({
       time: d.getSeconds()
