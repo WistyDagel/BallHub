@@ -1,9 +1,11 @@
 import React, { PureComponent, useState, useEffect } from "react";
 import { Text, AppRegistry, StyleSheet, Dimensions, View } from "react-native";
-import {Accelerometer} from "expo-sensors";
+import { Accelerometer } from "expo-sensors";
 import { GameLoop } from "react-native-game-engine";
 
 import { keepInBoundsX, collideBlock } from './Collision';
+
+let accelerometerData = [];
 
 const { width, height } = Dimensions.get("window");
 
@@ -62,14 +64,23 @@ export default class Dodge extends PureComponent {
   }
 
   componentDidMount(){
-    // console.log(this.randomBlockLeft);
     Accelerometer.addListener(data => {
-      // Move ball with accelerometer data
-      this.setState({ballX: Math.round(data.x * 500)});
+      // if (accelerometerData.length >= 3) {
+      //   this.setState({
+      //     ballX: (accelerometerData.reduce((a, b) => a + b, 0) / accelerometerData.length) * width
+      //   })
+      //   accelerometerData = [];
+      // } else {
+      //   accelerometerData.push(data.x);
+      //   this.setState({
+      //     ballX: this.state.ballX
+      //   })
+      // }
+      this.setState({ballX: Math.floor(data.x * width)});
     });
     counter = 1;
-  }  
-
+  }
+  
   gameLogic() {
     let d = new Date()
     this.setState({
@@ -146,28 +157,21 @@ export default class Dodge extends PureComponent {
       });
     }
 
-    // TODO Jeff's crappy collision code :)
-    // console.log(`${keepInBoundsX(this.state.ballX, this.state.ballX + (RADIUS * 2), width)} : ${this.state.ballX}`);
-    this.state.ballX = keepInBoundsX(this.state.ballX, this.state.ballX + (RADIUS * 2), 10, width - 10);
+    // Jeff's crappy collision code :)
+    // Ball-Wall collision
+    this.state.ballX = Math.floor(keepInBoundsX(this.state.ballX, this.state.ballX + (RADIUS * 2), 10, width - 10));
 
+    // Ball-Block collision
     ballCenterX = this.state.ballX + RADIUS;
     ballCenterY = this.state.ballTop + RADIUS;
-
-    blockLeft = Math.round((this.state.blockLeft1 / 100) * width);
-    blockTop = Math.round((this.state.blockTop1 / 100) * height);
-    console.log(blockTop);
-//     console.log(
-//       `
-// Ball Center: (${ballCenterX}, ${ballCenterY})
-// Ball Radius: ${RADIUS}
-// Block: (${this.state.blockLeft1}, ${this.state.blockTop1})
-// Block Width: ${blockWidth}
-// Block Height: ${blockHeight}
-// \n`
-//     );
-    if (collideBlock(ballCenterX, ballCenterY, RADIUS, (this.state.blockLeft1 / 100) * width, (this.state.blockTop1 / 100) * height, blockWidth, blockHeight)) {
-      // ballColor = "red";
-      GameLoop
+    if (collideBlock(ballCenterX, ballCenterY, RADIUS, (this.state.blockLeft1 / 100) * width, (this.state.blockTop1 / 100) * height, blockWidth, blockHeight) ||
+        collideBlock(ballCenterX, ballCenterY, RADIUS, (this.state.blockLeft2 / 100) * width, (this.state.blockTop2 / 100) * height, blockWidth, blockHeight) ||
+        collideBlock(ballCenterX, ballCenterY, RADIUS, (this.state.blockLeft3 / 100) * width, (this.state.blockTop3 / 100) * height, blockWidth, blockHeight) ||
+        collideBlock(ballCenterX, ballCenterY, RADIUS, (this.state.blockLeft4 / 100) * width, (this.state.blockTop4 / 100) * height, blockWidth, blockHeight) ||
+        collideBlock(ballCenterX, ballCenterY, RADIUS, (this.state.blockLeft5 / 100) * width, (this.state.blockTop5 / 100) * height, blockWidth, blockHeight)) {
+      ballColor = "red";
+    } else {
+      ballColor = "blue";
     }
 
   }
@@ -210,11 +214,6 @@ export default class Dodge extends PureComponent {
       enemyBlocks.push(<this.EnemyBlock key={i}/>);
     }
 
-    // collideBlock(ballCenterX, ballCenterY, RADIUS, this.state.blockLeft1, this.state.blockTop1, blockWidth, blockHeight
-    
-    // console.log(enemyBlocks.length);
-    
-    // <View style={[styles.block, {top: `${this.state.blockTop1}%`, left: `${this.state.blockLeft1}%`, backgroundColor: `${this.state.blockColor1}`}]}/>
     return (
       <GameLoop style={styles.container} onUpdate={this.gameLogic()}>
 
