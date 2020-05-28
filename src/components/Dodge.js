@@ -68,21 +68,27 @@ export default class Dodge extends PureComponent {
       this.setState({ballX: Math.round(data.x * 500)});
     });
     counter = 1;
+    this.state.timersec = 0;
   }  
 
   gameLogic() {
     let d = new Date()
     this.setState({
       seconds: d.getSeconds(),
-      minutes: d.getMinutes()
+      minutes: d.getMinutes(),
     });
 
     let mili = d.getMilliseconds()
-    // let second = d.getSeconds();
-
+    
     //Timer
-    if(d.getSeconds() - this.state.timersec == 1){
-      this.state.timersec++;
+    let second = d.getSeconds();
+    if(this.state.timersec == 60){
+      this.state.timersec = 0;
+      this.state.timermin++;
+    } else {
+      if(this.state.seconds < second){
+        this.state.timersec++;
+      }
     }
 
     if (this.state.seconds < mili) {
@@ -222,7 +228,7 @@ export default class Dodge extends PureComponent {
         
         <View style={[styles.ballEdge, { left: this.state.ballX}]} />
         
-        <View style={[styles.block, {top: `${this.state.blockTop1}%`, left: `${this.state.blockLeft1}%`, backgroundColor: "white"}]}/>
+        <View style={[styles.block, {top: `${this.state.blockTop1}%`, left: `${this.state.blockLeft1}%`, backgroundColor: `${this.state.blockColor1}`}]}/>
         
         <View style={[testStyles.dot, {left: ballCenterX, top: ballCenterY}]} />
         <View style={[testStyles.dot, {left: blockLeft, top: blockTop}]} />
@@ -233,7 +239,7 @@ export default class Dodge extends PureComponent {
         <View style={[styles.block, {top: `${this.state.blockTop5}%`, left: `${this.state.blockLeft5}%`, backgroundColor: `${this.state.blockColor5}`}]}/>
 
         {/* Create an array of View elements containing blocks, append to the array over a set interval of seconds  */}
-        <Text style={[styles.text], {left: "5%", top: "92%", fontSize: 24, color: "#fff"}}>{this.state.timersec}</Text>
+    <Text style={[styles.text], {left: "5%", top: "92%", fontSize: 24, color: "#fff"}}>{this.state.timermin}:{this.state.timersec}</Text>
         {/* {enemyBlocks} */}
       </GameLoop>
     );
