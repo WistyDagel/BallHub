@@ -169,10 +169,7 @@ export default class Dodge extends PureComponent {
         collideBlock(ballCenterX, ballCenterY, RADIUS, (this.state.blockLeft3 / 100) * width, (this.state.blockTop3 / 100) * height, blockWidth, blockHeight) ||
         collideBlock(ballCenterX, ballCenterY, RADIUS, (this.state.blockLeft4 / 100) * width, (this.state.blockTop4 / 100) * height, blockWidth, blockHeight) ||
         collideBlock(ballCenterX, ballCenterY, RADIUS, (this.state.blockLeft5 / 100) * width, (this.state.blockTop5 / 100) * height, blockWidth, blockHeight)) {
-      ballColor = "red";
-    } else {
-      ballColor = "blue";
-    }
+    } 
 
   }
 
