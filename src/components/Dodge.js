@@ -221,11 +221,7 @@ export default class Dodge extends PureComponent {
         
         <View style={[styles.ballEdge, { left: this.state.ballX}]} />
         
-        <View style={[styles.block, {top: `${this.state.blockTop1}%`, left: `${this.state.blockLeft1}%`, backgroundColor: "white"}]}/>
-        
-        <View style={[testStyles.dot, {left: ballCenterX, top: ballCenterY}]} />
-        <View style={[testStyles.dot, {left: blockLeft, top: blockTop}]} />
-        
+        <View style={[styles.block, {top: `${this.state.blockTop1}%`, left: `${this.state.blockLeft1}%`, backgroundColor: `${this.state.blockColor1}`}]}/>
         <View style={[styles.block, {top: `${this.state.blockTop2}%`, left: `${this.state.blockLeft2}%`, backgroundColor: `${this.state.blockColor2}`}]}/>
         <View style={[styles.block, {top: `${this.state.blockTop3}%`, left: `${this.state.blockLeft3}%`, backgroundColor: `${this.state.blockColor3}`}]}/>
         <View style={[styles.block, {top: `${this.state.blockTop4}%`, left: `${this.state.blockLeft4}%`, backgroundColor: `${this.state.blockColor4}`}]}/>
