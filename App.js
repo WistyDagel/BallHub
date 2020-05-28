@@ -1,9 +1,8 @@
 import * as React from 'react';
-import {StyleSheet, Text, View, Button, Image, ScrollView, TouchableOpacity } from 'react-native';
+import {StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Dodge from './src/components/Dodge';
-import Sumo from './src/components/Sumo';
 import Racer from './src/components/Racer';
 
 
