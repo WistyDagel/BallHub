@@ -35,6 +35,17 @@ function HomeScreen({ navigation, route }) {
           />
         </TouchableOpacity>
 
+        <Text style={styles.titleBottom}>
+          More Games Coming Soon...
+        </Text>
+        <Text style={{
+          marginBottom: 15,
+          fontSize: 15,
+          color: '#ffa31a'
+          }}>
+          Maybe
+        </Text>
+
       </View>
     </ScrollView>
   );
@@ -132,6 +143,12 @@ const styles = StyleSheet.create({
     marginTop: 25,
     marginBottom: 15,
     fontSize: 35,
+    color: '#ffa31a'
+  },
+  titleBottom: {
+    marginTop: 25,
+    marginBottom: 15,
+    fontSize: 25,
     color: '#ffa31a'
   }
 });
