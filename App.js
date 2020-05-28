@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {StyleSheet, Text, TextInput, View, Button } from 'react-native';
+import {StyleSheet, Text, View, Button, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Dodge from './src/components/Dodge';
@@ -9,20 +9,34 @@ import Racer from './src/components/Racer';
 
 function HomeScreen({ navigation, route }) {
   return (
-    <View style={styles.container}>
-      <Button
-        title="Dodge"
-        onPress={() => navigation.navigate('Dodge')}
-      />
-      {/* <Button
-        title="Sumo"
-        onPress={() => navigation.navigate('Sumo')}
-      /> */}
-      <Button
-        title="Racer"
-        onPress={() => navigation.navigate('Racer')}
-      />
-    </View>
+    <ScrollView style={{backgroundColor: '#292929'}}>
+
+      <View style={styles.container}>
+
+        <Text style={styles.title}>
+          Dodge el Block-O's
+        </Text>
+        <TouchableOpacity style={styles.dodge}
+          onPress={() => navigation.navigate('Dodge')}
+        >
+          <Image source={require('./src/components/images/ballAnimation.gif')}
+              style={styles.ballImage}
+            />
+        </TouchableOpacity>
+
+        <Text style={styles.title}>
+          Drive el Car-O
+        </Text>
+        <TouchableOpacity style={styles.car}
+          onPress={() => navigation.navigate('Racer')}
+        >
+          <Image source={require('./src/components/images/carAnimation.gif')}
+            style={styles.carImage}
+          />
+        </TouchableOpacity>
+
+      </View>
+    </ScrollView>
   );
 }
 
@@ -34,15 +48,6 @@ function DodgeScreen({navigation, route}) {
   )
 }
 
-function SumoScreen({navigation, route}) {
-  return (
-    <View>
-      <Sumo />
-    </View>
-  )
-}
-
-
 function RacerScreen({navigation, route}) {
   return (
     <View>
@@ -51,16 +56,26 @@ function RacerScreen({navigation, route}) {
   )
 }
 
-
 const Stack = createStackNavigator();
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator mode="modal">
-        <Stack.Screen name="Home" component={HomeScreen} />
+    <NavigationContainer >
+      <Stack.Navigator mode="modal" screenOptions={{
+        headerTintColor: 'white',
+        headerTitle: <Text>Game <Text style={{
+          backgroundColor: '#ffa31a',
+          color: 'black',
+        }}> hub </Text></Text> ,
+        headerStyle: { backgroundColor: '#1b1b1b', height: 150 },
+        headerTitleStyle: { 
+          fontSize: 50, 
+          padding: 5
+        }
+      }}
+      >
+        <Stack.Screen name="Home Hub" component={HomeScreen} />
         <Stack.Screen name="Dodge" component={Dodge} />
-        <Stack.Screen name="Sumo" component={Sumo} />
         <Stack.Screen name="Racer" component={Racer} />
       </Stack.Navigator>
     </NavigationContainer>
@@ -72,8 +87,51 @@ export default App;
 const styles = StyleSheet.create({
   container: { 
     flex: 1, 
-    backgroundColor: '#272727',
+    backgroundColor: '#292929',
+    display: 'flex',
     alignItems: 'center', 
     justifyContent: 'center'
+  },
+  dodge: {
+    backgroundColor: '#fff',
+    flex: 1,
+    paddingTop: 20,
+    paddingBottom: 20,
+    height: 200,
+    width: 200,
+    borderBottomRightRadius: 50,
+    borderBottomLeftRadius: 50,
+    borderTopRightRadius: 50,
+    borderTopLeftRadius: 50,
+    alignItems: 'center', 
+    justifyContent: 'center'
+  },
+  ballImage: {
+    width: '50%',
+    height: '75%'
+  },
+  car: {
+    backgroundColor: '#fff',
+    flex: 1,
+    paddingTop: 20,
+    paddingBottom: 20,
+    height: 200,
+    width: 200,
+    borderBottomRightRadius: 50,
+    borderBottomLeftRadius: 50,
+    borderTopRightRadius: 50,
+    borderTopLeftRadius: 50,
+    alignItems: 'center', 
+    justifyContent: 'center'
+  },
+  carImage: {
+    width: '50%',
+    height: '75%'
+  },
+  title: {
+    marginTop: 25,
+    marginBottom: 15,
+    fontSize: 35,
+    color: '#ffa31a'
   }
 });

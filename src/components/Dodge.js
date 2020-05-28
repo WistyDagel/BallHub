@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, { PureComponent, useState, useEffect } from "react";
 import { Text, AppRegistry, StyleSheet, Dimensions, View } from "react-native";
 import { Accelerometer } from "expo-sensors";
 import { GameLoop } from "react-native-game-engine";
@@ -8,6 +8,7 @@ import { keepInBoundsX, collideBlock } from './Collision';
 let accelerometerData = [];
 
 const { width, height } = Dimensions.get("window");
+
 const RADIUS = 30;
 
 var ballCenterX = 0;
@@ -18,7 +19,7 @@ var blockTop = 0;
 const blockWidth = 30;
 const blockHeight = 80;
 
-let ballColor = "blue";
+var timecounter = 0;
 
 var counter = 1;
 
@@ -30,12 +31,15 @@ export default class Dodge extends PureComponent {
       y: height / 2 - RADIUS,
       ballTop: 10,
       ballX: 10,
-      blockTop1: 100,
-      blockTop2: 100,
-      blockTop3: 100,
-      blockTop4: 100,
-      blockTop5: 100,
-      time: 0,
+      blockTop1: 120,
+      blockTop2: 120,
+      blockTop3: 120,
+      blockTop4: 120,
+      blockTop5: 120,
+      minutes: 0,
+      seconds: 0,
+      timermin: 0,
+      timersec: 0,
       counter: 1,
       blockLeft1: this.randomBlockLeft(),
       blockColor1: this.randomBlockColor(),
@@ -50,8 +54,7 @@ export default class Dodge extends PureComponent {
       // blockTop: 100,
       // blockLeft: this.randomBlockLeft(),
       // blockColors: this.randomBlockColor()
-    };
-    this._isMounted = false;
+    }
   }
 
   EnemyBlock = () => {
@@ -75,20 +78,25 @@ export default class Dodge extends PureComponent {
       // }
       this.setState({ballX: Math.floor(data.x * width)});
     });
-
     counter = 1;
   }
   
   gameLogic() {
     let d = new Date()
     this.setState({
-      time: d.getSeconds()
+      seconds: d.getSeconds(),
+      minutes: d.getMinutes()
     });
 
     let mili = d.getMilliseconds()
     // let second = d.getSeconds();
 
-    if (this.state.time < mili) {
+    //Timer
+    if(d.getSeconds() - this.state.timersec == 1){
+      this.state.timersec++;
+    }
+
+    if (this.state.seconds < mili) {
       this.state.blockTop1 -= 3;
       
       if (counter >= 10) {
@@ -109,7 +117,7 @@ export default class Dodge extends PureComponent {
       counter +=1
     }
 
-    if (this.state.blockTop1 <= -80) {
+    if (this.state.blockTop1 <= 0) {
       this.setState({
         blockTop1: 100,
         blockLeft1: this.randomBlockLeft(),
@@ -117,7 +125,7 @@ export default class Dodge extends PureComponent {
       });
     }
 
-    if (this.state.blockTop2 <= -80) {
+    if (this.state.blockTop2 <= 0) {
       this.setState({
         blockTop2: 100,
         blockLeft2: this.randomBlockLeft(),
@@ -125,7 +133,7 @@ export default class Dodge extends PureComponent {
       });
     }
 
-    if (this.state.blockTop3 <= -80) {
+    if (this.state.blockTop3 <= 0) {
       this.setState({
         blockTop3: 100,
         blockLeft3: this.randomBlockLeft(),
@@ -133,7 +141,7 @@ export default class Dodge extends PureComponent {
       });
     }
 
-    if (this.state.blockTop4 <= -80) {
+    if (this.state.blockTop4 <= 0) {
       this.setState({
         blockTop4: 100,
         blockLeft4: this.randomBlockLeft(),
@@ -141,7 +149,7 @@ export default class Dodge extends PureComponent {
       });
     }
 
-    if (this.state.blockTop5 <= -80) {
+    if (this.state.blockTop5 <= 0) {
       this.setState({
         blockTop5: 100,
         blockLeft5: this.randomBlockLeft(),
@@ -200,12 +208,7 @@ export default class Dodge extends PureComponent {
 
   render() {
 
-    let enemyBlocks = [];
-    let d = new Date()
-    this.setState({
-      time: d.getSeconds()
-    });
-    let second = d.getSeconds();
+    let enemyBlocks = [];  
 
     for (let i = 0; i < 1; i++) {
       enemyBlocks.push(<this.EnemyBlock key={i}/>);
@@ -214,18 +217,22 @@ export default class Dodge extends PureComponent {
     return (
       <GameLoop style={styles.container} onUpdate={this.gameLogic()}>
 
-        <View style={[styles.ball, {top: this.state.ballTop, left: this.state.ballX, backgroundColor: ballColor}]} />
+        <View style={[styles.ball, {top: this.state.ballTop, left: this.state.ballX, backgroundColor: "red"}]} />
         
         <View style={[styles.ballEdge, { left: this.state.ballX}]} />
         
-        <View style={[styles.block, {top: `${this.state.blockTop1}%`, left: `${this.state.blockLeft1}%`, backgroundColor: `${this.state.blockColor2}`}]}/>
+        <View style={[styles.block, {top: `${this.state.blockTop1}%`, left: `${this.state.blockLeft1}%`, backgroundColor: "white"}]}/>
+        
+        <View style={[testStyles.dot, {left: ballCenterX, top: ballCenterY}]} />
+        <View style={[testStyles.dot, {left: blockLeft, top: blockTop}]} />
+        
         <View style={[styles.block, {top: `${this.state.blockTop2}%`, left: `${this.state.blockLeft2}%`, backgroundColor: `${this.state.blockColor2}`}]}/>
         <View style={[styles.block, {top: `${this.state.blockTop3}%`, left: `${this.state.blockLeft3}%`, backgroundColor: `${this.state.blockColor3}`}]}/>
         <View style={[styles.block, {top: `${this.state.blockTop4}%`, left: `${this.state.blockLeft4}%`, backgroundColor: `${this.state.blockColor4}`}]}/>
         <View style={[styles.block, {top: `${this.state.blockTop5}%`, left: `${this.state.blockLeft5}%`, backgroundColor: `${this.state.blockColor5}`}]}/>
 
-        {/* Create an array of View elements containing blocks, append to the array over a set interval of time  */}
-        <Text style={[styles.text], {left: "5%", top: "92%", fontSize: 24, color: "#fff"}}>{this.state.time}</Text>
+        {/* Create an array of View elements containing blocks, append to the array over a set interval of seconds  */}
+        <Text style={[styles.text], {left: "5%", top: "92%", fontSize: 24, color: "#fff"}}>{this.state.timersec}</Text>
         {/* {enemyBlocks} */}
       </GameLoop>
     );
