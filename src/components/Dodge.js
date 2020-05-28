@@ -31,11 +31,11 @@ export default class Dodge extends PureComponent {
       y: height / 2 - RADIUS,
       ballTop: 10,
       ballX: 10,
-      blockTop1: 120,
-      blockTop2: 120,
-      blockTop3: 120,
-      blockTop4: 120,
-      blockTop5: 120,
+      blockTop1: 110,
+      blockTop2: 110,
+      blockTop3: 110,
+      blockTop4: 110,
+      blockTop5: 110,
       minutes: 0,
       seconds: 0,
       timermin: 0,
@@ -117,7 +117,7 @@ export default class Dodge extends PureComponent {
       counter +=1
     }
 
-    if (this.state.blockTop1 <= 0) {
+    if (this.state.blockTop1 <= -80) {
       this.setState({
         blockTop1: 100,
         blockLeft1: this.randomBlockLeft(),
@@ -125,7 +125,7 @@ export default class Dodge extends PureComponent {
       });
     }
 
-    if (this.state.blockTop2 <= 0) {
+    if (this.state.blockTop2 <= -80) {
       this.setState({
         blockTop2: 100,
         blockLeft2: this.randomBlockLeft(),
@@ -133,7 +133,7 @@ export default class Dodge extends PureComponent {
       });
     }
 
-    if (this.state.blockTop3 <= 0) {
+    if (this.state.blockTop3 <= -80) {
       this.setState({
         blockTop3: 100,
         blockLeft3: this.randomBlockLeft(),
@@ -141,7 +141,7 @@ export default class Dodge extends PureComponent {
       });
     }
 
-    if (this.state.blockTop4 <= 0) {
+    if (this.state.blockTop4 <= -80) {
       this.setState({
         blockTop4: 100,
         blockLeft4: this.randomBlockLeft(),
@@ -149,7 +149,7 @@ export default class Dodge extends PureComponent {
       });
     }
 
-    if (this.state.blockTop5 <= 0) {
+    if (this.state.blockTop5 <= -80) {
       this.setState({
         blockTop5: 100,
         blockLeft5: this.randomBlockLeft(),
