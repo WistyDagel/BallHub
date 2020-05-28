@@ -94,6 +94,7 @@ export default class Dodge extends PureComponent {
     
     //Timer
     let second = d.getSeconds();
+
     if(this.state.timersec == 60){
       this.state.timersec = 0;
       this.state.timermin++;
@@ -175,7 +176,8 @@ export default class Dodge extends PureComponent {
         collideBlock(ballCenterX, ballCenterY, RADIUS, (this.state.blockLeft2 / 100) * width, (this.state.blockTop2 / 100) * height, blockWidth, blockHeight) ||
         collideBlock(ballCenterX, ballCenterY, RADIUS, (this.state.blockLeft3 / 100) * width, (this.state.blockTop3 / 100) * height, blockWidth, blockHeight) ||
         collideBlock(ballCenterX, ballCenterY, RADIUS, (this.state.blockLeft4 / 100) * width, (this.state.blockTop4 / 100) * height, blockWidth, blockHeight) ||
-        collideBlock(ballCenterX, ballCenterY, RADIUS, (this.state.blockLeft5 / 100) * width, (this.state.blockTop5 / 100) * height, blockWidth, blockHeight)) {
+        collideBlock(ballCenterX, ballCenterY, RADIUS, (this.state.blockLeft5 / 100) * width, (this.state.blockTop5 / 100) * height, blockWidth, blockHeight)) { 
+          //END GAME STATE - Chris
     } 
 
   }
@@ -232,7 +234,7 @@ export default class Dodge extends PureComponent {
         <View style={[styles.block, {top: `${this.state.blockTop5}%`, left: `${this.state.blockLeft5}%`, backgroundColor: `${this.state.blockColor5}`}]}/>
 
         {/* Create an array of View elements containing blocks, append to the array over a set interval of seconds  */}
-    <Text style={[styles.text], {left: "5%", top: "92%", fontSize: 24, color: "#fff"}}>{this.state.timermin}:{this.state.timersec}</Text>
+        <Text style={[styles.text], {left: "5%", top: "92%", fontSize: 24, color: "#fff"}}>{this.state.timermin}:{this.state.timersec}</Text>
         {/* {enemyBlocks} */}
       </GameLoop>
     );
