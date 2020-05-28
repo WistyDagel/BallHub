@@ -1,9 +1,8 @@
 import * as React from 'react';
-import {StyleSheet, Text, View, Button, Image, ScrollView, TouchableOpacity } from 'react-native';
+import {StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Dodge from './src/components/Dodge';
-import Sumo from './src/components/Sumo';
 import Racer from './src/components/Racer';
 
 
@@ -34,6 +33,17 @@ function HomeScreen({ navigation, route }) {
             style={styles.carImage}
           />
         </TouchableOpacity>
+
+        <Text style={styles.titleBottom}>
+          More Games Coming Soon...
+        </Text>
+        <Text style={{
+          marginBottom: 15,
+          fontSize: 15,
+          color: '#ffa31a'
+          }}>
+          Maybe
+        </Text>
 
       </View>
     </ScrollView>
@@ -132,6 +142,12 @@ const styles = StyleSheet.create({
     marginTop: 25,
     marginBottom: 15,
     fontSize: 35,
+    color: '#ffa31a'
+  },
+  titleBottom: {
+    marginTop: 25,
+    marginBottom: 15,
+    fontSize: 25,
     color: '#ffa31a'
   }
 });
