@@ -14,7 +14,7 @@ function HomeScreen({ navigation, route }) {
       <View style={styles.container}>
 
         <Text style={styles.title}>
-          Double el Block-O's
+          Dodge el Block-O's
         </Text>
         <TouchableOpacity style={styles.dodge}
           onPress={() => navigation.navigate('Dodge')}
