@@ -94,7 +94,6 @@ export default class Dodge extends PureComponent {
     
     //Timer
     let second = d.getSeconds();
-
     if(this.state.timersec == 60){
       this.state.timersec = 0;
       this.state.timermin++;
@@ -223,7 +222,7 @@ export default class Dodge extends PureComponent {
     return (
       <GameLoop style={styles.container} onUpdate={this.gameLogic()}>
 
-        <View style={[styles.ball, {top: this.state.ballTop, left: this.state.ballX, backgroundColor: "blue"}]} />
+        <View style={[styles.ball, {top: this.state.ballTop, left: this.state.ballX, backgroundColor: "#0198E1"}]} />
         
         <View style={[styles.ballEdge, { left: this.state.ballX}]} />
         
