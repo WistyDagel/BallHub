@@ -65,7 +65,7 @@ export default class Dodge extends PureComponent {
     // console.log(this.randomBlockLeft);
     Accelerometer.addListener(data => {
       // Move ball with accelerometer data
-      this.setState({ballX: Math.floor(data.x * 500)});
+      this.setState({ballX: Math.round(data.x * 500)});
     });
     counter = 1;
   }  
