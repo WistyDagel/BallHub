@@ -221,7 +221,7 @@ export default class Dodge extends PureComponent {
     return (
       <GameLoop style={styles.container} onUpdate={this.gameLogic()}>
 
-        <View style={[styles.ball, {top: this.state.ballTop, left: this.state.ballX, backgroundColor: "red"}]} />
+        <View style={[styles.ball, {top: this.state.ballTop, left: this.state.ballX, backgroundColor: "blue"}]} />
         
         <View style={[styles.ballEdge, { left: this.state.ballX}]} />
         
