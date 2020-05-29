@@ -1,7 +1,7 @@
 import React, { PureComponent, useState, useEffect } from "react";
-import { Text, AppRegistry, StyleSheet, Dimensions, View } from "react-native";
+import { Text, AppRegistry, StyleSheet, Dimensions, View, Alert } from "react-native";
 import { Accelerometer } from "expo-sensors";
-import { GameLoop } from "react-native-game-engine";
+import { GameEngine, GameLoop } from "react-native-game-engine";
 
 import { keepInBoundsX, collideBlock } from './Collision';
 
@@ -19,9 +19,12 @@ var blockTop = 0;
 const blockWidth = 30;
 const blockHeight = 80;
 
+let enemyBlocks = [];  
+
 var timecounter = 0;
 
 var counter = 1;
+var gameOver = false;
 
 export default class Dodge extends PureComponent {
   constructor() {
@@ -50,7 +53,7 @@ export default class Dodge extends PureComponent {
       blockLeft4: this.randomBlockLeft(),
       blockColor4: this.randomBlockColor(),
       blockLeft5: this.randomBlockLeft(),
-      blockColor5: this.randomBlockColor(),
+      blockColor5: this.randomBlockColor()
       // blockTop: 100,
       // blockLeft: this.randomBlockLeft(),
       // blockColors: this.randomBlockColor()
@@ -81,103 +84,117 @@ export default class Dodge extends PureComponent {
     counter = 1;
     this.state.timersec = 0;
     this.state.timermin = 0;
+    gameOver = false;
   }  
 
   gameLogic() {
-    let d = new Date()
-    this.setState({
-      seconds: d.getSeconds(),
-      minutes: d.getMinutes(),
-    });
+    if(!gameOver){
 
-    let mili = d.getMilliseconds()
-    
-    //Timer
-    let second = d.getSeconds();
-    if(this.state.timersec == 60){
-      this.state.timersec = 0;
-      this.state.timermin++;
-    } else {
-      if(this.state.seconds < second){
-        this.state.timersec++;
-      }
-    }
-
-    if (this.state.seconds < mili) {
-      this.state.blockTop1 -= 3;
+      let d = new Date()
+      this.setState({
+        seconds: d.getSeconds(),
+        minutes: d.getMinutes(),
+      });
+  
+      let mili = d.getMilliseconds()
       
-      if (counter >= 10) {
-        this.state.blockTop2 -= 3;
+      //Timer
+      let second = d.getSeconds();
+      if(this.state.timersec == 60){
+        this.state.timersec = 0;
+        this.state.timermin++;
+      } else {
+        if(this.state.seconds < second){
+          this.state.timersec++;
+        }
+      }
+  
+      if (this.state.seconds < mili) {
+        this.state.blockTop1 -= 3;
         
-        if (counter >= 20) {
-          this.state.blockTop3 -= 3;
+        if (counter >= 10) {
+          this.state.blockTop2 -= 3;
           
-          if (counter >= 30) {
-            this.state.blockTop4 -= 3;
+          if (counter >= 20) {
+            this.state.blockTop3 -= 3;
             
-            if (counter >= 40) {
-              this.state.blockTop5 -= 3;
+            if (counter >= 30) {
+              this.state.blockTop4 -= 3;
+              
+              if (counter >= 40) {
+                this.state.blockTop5 -= 3;
+              }
             }
           }
         }
+        counter +=1
       }
-      counter +=1
+  
+      if (this.state.blockTop1 <= -80) {
+        this.setState({
+          blockTop1: 100,
+          blockLeft1: this.randomBlockLeft(),
+          blockColor1: this.randomBlockColor()
+        });
+      }
+  
+      if (this.state.blockTop2 <= -80) {
+        this.setState({
+          blockTop2: 100,
+          blockLeft2: this.randomBlockLeft(),
+          blockColor2: this.randomBlockColor()
+        });
+      }
+  
+      if (this.state.blockTop3 <= -80) {
+        this.setState({
+          blockTop3: 100,
+          blockLeft3: this.randomBlockLeft(),
+          blockColor3: this.randomBlockColor()
+        });
+      }
+  
+      if (this.state.blockTop4 <= -80) {
+        this.setState({
+          blockTop4: 100,
+          blockLeft4: this.randomBlockLeft(),
+          blockColor4: this.randomBlockColor()
+        });
+      }
+  
+      if (this.state.blockTop5 <= -80) {
+        this.setState({
+          blockTop5: 100,
+          blockLeft5: this.randomBlockLeft(),
+          blockColor5: this.randomBlockColor()
+        });
+      }
+  
+      // Jeff's crappy collision code :)
+      // Ball-Wall collision
+      this.state.ballX = Math.floor(keepInBoundsX(this.state.ballX, this.state.ballX + (RADIUS * 2), 10, width - 10));
+  
+      // Ball-Block collision
+      ballCenterX = this.state.ballX + RADIUS;
+      ballCenterY = this.state.ballTop + RADIUS;
+      if (collideBlock(ballCenterX, ballCenterY, RADIUS, (this.state.blockLeft1 / 100) * width, (this.state.blockTop1 / 100) * height, blockWidth, blockHeight) ||
+          collideBlock(ballCenterX, ballCenterY, RADIUS, (this.state.blockLeft2 / 100) * width, (this.state.blockTop2 / 100) * height, blockWidth, blockHeight) ||
+          collideBlock(ballCenterX, ballCenterY, RADIUS, (this.state.blockLeft3 / 100) * width, (this.state.blockTop3 / 100) * height, blockWidth, blockHeight) ||
+          collideBlock(ballCenterX, ballCenterY, RADIUS, (this.state.blockLeft4 / 100) * width, (this.state.blockTop4 / 100) * height, blockWidth, blockHeight) ||
+          collideBlock(ballCenterX, ballCenterY, RADIUS, (this.state.blockLeft5 / 100) * width, (this.state.blockTop5 / 100) * height, blockWidth, blockHeight)) { 
+          // //END GAME STATE - Chris
+          gameOver = true;
+          Accelerometer.removeAllListeners();
+          Alert.alert(
+            "Game Over!",
+            `Time survived: (${this.state.timermin}:${this.state.timersec})`,
+            [
+              { text: "Okay" }
+            ],
+            { cancelable: false }
+          );
+      } 
     }
-
-    if (this.state.blockTop1 <= -80) {
-      this.setState({
-        blockTop1: 100,
-        blockLeft1: this.randomBlockLeft(),
-        blockColor1: this.randomBlockColor()
-      });
-    }
-
-    if (this.state.blockTop2 <= -80) {
-      this.setState({
-        blockTop2: 100,
-        blockLeft2: this.randomBlockLeft(),
-        blockColor2: this.randomBlockColor()
-      });
-    }
-
-    if (this.state.blockTop3 <= -80) {
-      this.setState({
-        blockTop3: 100,
-        blockLeft3: this.randomBlockLeft(),
-        blockColor3: this.randomBlockColor()
-      });
-    }
-
-    if (this.state.blockTop4 <= -80) {
-      this.setState({
-        blockTop4: 100,
-        blockLeft4: this.randomBlockLeft(),
-        blockColor4: this.randomBlockColor()
-      });
-    }
-
-    if (this.state.blockTop5 <= -80) {
-      this.setState({
-        blockTop5: 100,
-        blockLeft5: this.randomBlockLeft(),
-        blockColor5: this.randomBlockColor()
-      });
-    }
-
-    // Jeff's crappy collision code :)
-    // Ball-Wall collision
-    this.state.ballX = Math.floor(keepInBoundsX(this.state.ballX, this.state.ballX + (RADIUS * 2), 10, width - 10));
-
-    // Ball-Block collision
-    ballCenterX = this.state.ballX + RADIUS;
-    ballCenterY = this.state.ballTop + RADIUS;
-    if (collideBlock(ballCenterX, ballCenterY, RADIUS, (this.state.blockLeft1 / 100) * width, (this.state.blockTop1 / 100) * height, blockWidth, blockHeight) ||
-        collideBlock(ballCenterX, ballCenterY, RADIUS, (this.state.blockLeft2 / 100) * width, (this.state.blockTop2 / 100) * height, blockWidth, blockHeight) ||
-        collideBlock(ballCenterX, ballCenterY, RADIUS, (this.state.blockLeft3 / 100) * width, (this.state.blockTop3 / 100) * height, blockWidth, blockHeight) ||
-        collideBlock(ballCenterX, ballCenterY, RADIUS, (this.state.blockLeft4 / 100) * width, (this.state.blockTop4 / 100) * height, blockWidth, blockHeight) ||
-        collideBlock(ballCenterX, ballCenterY, RADIUS, (this.state.blockLeft5 / 100) * width, (this.state.blockTop5 / 100) * height, blockWidth, blockHeight)) { 
-          //END GAME STATE - Chris
-    } 
 
   }
 
@@ -212,8 +229,6 @@ export default class Dodge extends PureComponent {
   }
 
   render() {
-
-    let enemyBlocks = [];  
 
     for (let i = 0; i < 1; i++) {
       enemyBlocks.push(<this.EnemyBlock key={i}/>);
