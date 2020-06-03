@@ -187,7 +187,7 @@ export default class Dodge extends PureComponent {
           Accelerometer.removeAllListeners();
           Alert.alert(
             "Game Over!",
-            `Time survived: (${this.state.timermin}:${this.state.timersec})`,
+            `Time survived: (${this.state.timermin} minutes & ${this.state.timersec} seconds)`,
             [
               { text: "Okay" }
             ],
